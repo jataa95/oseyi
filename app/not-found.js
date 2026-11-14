@@ -1,13 +1,14 @@
-import Link from "next/link";
-import Roll from "@/components/Roll";
+import Button from "@/components/Button";
 
 export default function NotFound() {
   return (
-    <main className="flex h-svh flex-col items-start justify-end gap-6 px-[var(--gutter)] pb-[var(--gutter)]">
-      <h1 className="font-serif text-[20vw] leading-[0.8]">Not here.</h1>
-      <Link href="/shop" className="label border-b border-bone pb-1">
-        <Roll>Back to the shop</Roll>
-      </Link>
+    <main className="grid h-svh place-items-center px-[var(--gutter)] text-center">
+      <div>
+        <h1 className="display text-[22vw] md:text-[11vw]">Not Here</h1>
+        <Button href="/shop" className="mt-10">
+          Back to the shop
+        </Button>
+      </div>
     </main>
   );
 }

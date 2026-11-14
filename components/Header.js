@@ -2,16 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import LocalTime from "./LocalTime";
 import Menu from "./Menu";
 import Bag from "./Bag";
-import Roll from "./Roll";
-import Wordmark from "./Wordmark";
+import Progress from "./Progress";
+import { InstagramIcon, Monogram, WhatsAppIcon } from "./Icons";
 import { useBag } from "./BagProvider";
 import { site } from "@/data/site";
 
-// Four columns that line up with the gallery below:
-// brand | wordmark | menu + shop | Lagos time + bag circle.
+// Socials on the left, the Ò monogram in the middle, Bag and Navigate on the right.
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { count, setOpen } = useBag();
@@ -19,44 +17,43 @@ export default function Header() {
 
   return (
     <>
-      <header className="label fixed inset-x-0 top-0 z-40 grid grid-cols-3 gap-[var(--gap)] px-[var(--gutter)] pt-[var(--gutter)] mix-blend-difference md:grid-cols-4">
-        <Link href="/" onClick={close} className="roll-group leading-[14px]">
-          <span className="block">
-            <Roll>{site.name}</Roll>
-          </span>
-          <span className="block text-bone/60">Clothing brand</span>
-        </Link>
-
-        <Link href="/" onClick={close} aria-label="Òseyi home" className="hidden md:block">
-          <Wordmark className="text-[28px] leading-none" />
-        </Link>
-
-        <div className="flex flex-col items-start">
-          <button onClick={() => setMenuOpen((o) => !o)} aria-expanded={menuOpen}>
-            <Roll>{menuOpen ? "Close" : "Menu"}</Roll>
-          </button>
-          <Link href="/shop" onClick={close}>
-            <Roll>Shop</Roll>
-          </Link>
+      <header className="fixed inset-x-0 top-0 z-40 grid grid-cols-3 items-center px-[var(--gutter)] pt-5 mix-blend-difference">
+        <div className="flex items-center gap-4">
+          <a href={site.instagramUrl} target="_blank" rel="noopener" aria-label="Òseyi on Instagram" className="opacity-90 hover:opacity-100">
+            <InstagramIcon />
+          </a>
+          {site.whatsapp && (
+            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" aria-label="Òseyi on WhatsApp" className="opacity-90 hover:opacity-100">
+              <WhatsAppIcon />
+            </a>
+          )}
         </div>
 
-        <div className="flex items-start justify-end md:justify-between">
-          <div className="hidden md:block">
-            <span className="block">Local time</span>
-            <LocalTime />
-          </div>
+        <Link href="/" onClick={close} aria-label="Òseyi home" className="justify-self-center">
+          <Monogram />
+        </Link>
+
+        <div className="caps flex items-center justify-end gap-6">
           <button
             onClick={() => {
               close();
               setOpen(true);
             }}
             aria-label={`Open bag, ${count} items`}
-            className="group relative grid size-[52px] place-items-center rounded-full border border-bone transition-colors hover:bg-bone hover:text-ink"
           >
-            <span className="tabular-nums">{count}</span>
+            Bag ({count})
+          </button>
+          <button onClick={() => setMenuOpen((o) => !o)} aria-expanded={menuOpen} className="flex items-center gap-3">
+            <span className="hidden sm:inline">{menuOpen ? "Close" : "Navigate"}</span>
+            <span className="relative block h-[9px] w-[18px]" aria-hidden>
+              <span className={`absolute left-0 top-0 h-px w-full bg-current transition-transform duration-500 ${menuOpen ? "translate-y-[4px] rotate-45" : ""}`} />
+              <span className={`absolute left-0 top-1/2 h-px w-full bg-current transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`absolute bottom-0 left-0 h-px w-full bg-current transition-transform duration-500 ${menuOpen ? "-translate-y-[4px] -rotate-45" : ""}`} />
+            </span>
           </button>
         </div>
       </header>
+      <Progress />
       <Menu open={menuOpen} onClose={close} />
       <Bag />
     </>

@@ -1,11 +1,12 @@
-import { Bodoni_Moda, Inter_Tight } from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
 import Header from "@/components/Header";
+import SmoothScroll from "@/components/SmoothScroll";
 import { BagProvider } from "@/components/BagProvider";
 import { site } from "@/data/site";
 import "./globals.css";
 
-const bodoni = Bodoni_Moda({ subsets: ["latin"], variable: "--font-bodoni", style: ["normal", "italic"] });
-const inter = Inter_Tight({ subsets: ["latin"], variable: "--font-inter-tight" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-instrument" });
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 export const metadata = {
   title: { default: `${site.name} — ${site.tagline}`, template: `%s — ${site.name}` },
@@ -18,14 +19,15 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0f0e0d",
+  themeColor: "#050505",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${inter.variable}`}>
-      <body className="grain">
+    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+      <body className="weave grain">
         <BagProvider>
+          <SmoothScroll />
           <Header />
           {children}
         </BagProvider>

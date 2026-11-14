@@ -1,30 +1,25 @@
 @import "tailwindcss";
 
-/* Òseyi palette: the matte black box, bone tissue, silver foil. */
+/* Òseyi: black like the box, bone like the tissue, turquoise like the stone buttons. */
 @theme {
-  --color-ink: #0f0e0d;
-  --color-coal: #1a1917;
-  --color-bone: #ebe6dc;
-  --color-ash: #8f8a82;
-  --color-line: #2c2a27;
-  --color-stone: #2fa39a;
+  --color-ink: #050505;
+  --color-coal: #121212;
+  --color-bone: #f1ede6;
+  --color-ash: #8d8984;
+  --color-line: #262626;
+  --color-stone: #4fb9ab;
 
-  --font-sans: var(--font-inter-tight), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-serif: var(--font-bodoni), "Didot", "Times New Roman", serif;
+  --font-sans: var(--font-geist), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-instrument), "Times New Roman", serif;
 }
 
 :root {
-  /* Outer margin and the gap between the four grid columns. */
-  --gutter: 16px;
-  --gap: 8px;
-  /* One of the four columns the header and gallery share. */
-  --col: calc((100vw - 2 * var(--gutter) - 3 * var(--gap)) / 4);
+  --gutter: 24px;
 }
 
 @media (max-width: 767px) {
   :root {
-    --gutter: 12px;
-    --gap: 8px;
+    --gutter: 16px;
   }
 }
 
@@ -40,6 +35,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* A faint crochet weave behind everything: columns of eyelets between
+   ribbed stripes, like the shirts. */
+.weave {
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(ellipse 2px 3px at 50% 50%, rgba(0, 0, 0, 0.9) 60%, transparent 70%),
+    radial-gradient(ellipse 5px 4px at 50% 50%, rgba(255, 255, 255, 0.05) 50%, transparent 75%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 5px),
+    linear-gradient(180deg, #0b0b0b, #070707);
+  background-size: 22px 14px, 22px 14px, 22px 100%, 100% 100%;
+  background-position: 0 0, 0 0, 3px 0, 0 0;
+}
+
 button {
   text-transform: inherit;
   letter-spacing: inherit;
@@ -51,49 +59,77 @@ button {
   color: var(--color-ink);
 }
 
-/* Small uppercase label type used across the site. */
-.label {
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.02em;
+/* Widely tracked small capitals: NAVIGATE, SHOP THE COLLECTION. */
+.caps {
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
-/* Text that rolls up to a copy of itself on hover.
-   Markup: <span class="roll"><span data-text="Shop">Shop</span></span> */
-.roll {
+.display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+/* Outlined button with a light catching its top and bottom edges. */
+.gleam {
   position: relative;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 32px;
+  border: 1px solid rgba(241, 237, 230, 0.16);
+  background: rgba(5, 5, 5, 0.55);
+  backdrop-filter: blur(6px);
+  transition: border-color 0.4s, background 0.4s, color 0.4s;
 }
 
-.roll > span {
-  display: inline-block;
-  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
-}
-
-.roll > span::after {
-  content: attr(data-text);
+.gleam::before,
+.gleam::after {
+  content: "";
   position: absolute;
-  left: 0;
-  top: 100%;
+  height: 1px;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--color-bone), transparent);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-a:hover .roll > span,
-button:hover .roll > span,
-.roll-group:hover .roll > span {
-  transform: translateY(-100%);
+.gleam::before {
+  top: -1px;
+  left: 40%;
 }
 
-/* Fine film grain over everything, like the photos. */
+.gleam::after {
+  bottom: -1px;
+  left: 10%;
+}
+
+.gleam:hover {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  border-color: var(--color-bone);
+}
+
+.gleam:hover::before {
+  transform: translateX(-80%);
+}
+
+.gleam:hover::after {
+  transform: translateX(120%);
+}
+
+/* Fine film grain over everything. */
 .grain::after {
   content: "";
   position: fixed;
   inset: -50%;
   pointer-events: none;
   z-index: 100;
-  opacity: 0.06;
+  opacity: 0.07;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   animation: grain 1.2s steps(6) infinite;
 }
@@ -107,20 +143,31 @@ button:hover .roll > span,
   100% { transform: translate(0, 0); }
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 
-.blink {
-  animation: blink 1s steps(1) infinite;
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Lenis smooth scrolling. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .grain::after,
-  .blink {
+  .marquee {
     animation: none;
-  }
-  .roll > span {
-    transition: none;
   }
 }

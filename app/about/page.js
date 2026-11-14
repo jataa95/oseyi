@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import RevealTitle from "@/components/RevealTitle";
 import { site } from "@/data/site";
 
-export const metadata = { title: "About" };
+export const metadata = { title: "Our Story" };
 
 const notes = [
   { n: "01", title: "From a corner of a room", body: "Òseyi started in a small corner of a bedroom. Today it has its own workspace, shelves of black boxes and a steady stream of orders going out." },
@@ -14,42 +15,41 @@ const notes = [
 export default function About() {
   return (
     <>
-      <main className="px-[var(--gutter)] pt-[30vh]">
-        <div className="grid grid-cols-4 gap-[var(--gap)]">
-          <h1 className="col-span-4 font-serif text-[14vw] leading-[0.85] md:col-span-3 md:text-[7.5vw]">
-            Classy, <em>without</em>
-            <br />
-            the effort.
-          </h1>
-        </div>
+      <main className="px-[var(--gutter)]">
+        <section className="grid min-h-svh place-items-center text-center">
+          <div>
+            <p className="caps text-ash">Our story</p>
+            <RevealTitle as="h1" text={"Classy, Without\nThe Effort"} className="mt-6 text-[17vw] md:text-[8vw]" />
+          </div>
+        </section>
 
-        <div className="mt-24 grid grid-cols-1 gap-[var(--gap)] md:grid-cols-4">
-          <div className="relative aspect-[9/16] overflow-hidden bg-coal md:col-span-1">
+        <section className="mx-auto grid max-w-[1200px] items-center gap-12 md:grid-cols-2 md:gap-24">
+          <div className="relative aspect-[9/16] overflow-hidden border border-line md:max-w-[440px]">
             <video src="/media/unboxing.mp4" poster="/media/unboxing-poster.jpg" muted loop playsInline autoPlay preload="metadata" className="h-full w-full object-cover" />
           </div>
-          <div className="relative aspect-[4/5] overflow-hidden bg-coal md:col-span-1 md:mt-[30%]">
-            <Image src="/media/oseyi-box.jpg" alt="The Òseyi box" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
-          </div>
-          <div className="md:col-span-2 md:pl-[calc(var(--col)*0.25)]">
-            <p className="font-serif text-3xl leading-tight md:text-4xl">
-              {site.name} is a Nigerian clothing brand for people who like to look put together: textured shirts with
-              small details, everyday footwear, and a box worth keeping.
+          <div>
+            <p className="display text-[9vw] md:text-[3.4vw]">
+              {site.name} is a Nigerian clothing brand for people who like to look put together.
+            </p>
+            <p className="mt-8 max-w-[46ch] text-[17px] leading-snug text-bone/75">
+              Textured shirts with small details, everyday footwear, and a box worth keeping. We pick every piece for how it
+              feels and how it sits, then pack it like a gift.
             </p>
           </div>
-        </div>
+        </section>
 
-        <ul className="mt-32 grid grid-cols-1 gap-x-[var(--gap)] gap-y-12 border-t border-line pt-4 md:grid-cols-4">
+        <ul className="mx-auto mt-[20vh] grid max-w-[1400px] grid-cols-1 gap-x-8 gap-y-14 border-t border-line pt-8 md:grid-cols-4">
           {notes.map((n) => (
             <li key={n.n}>
-              <p className="label text-ash">{n.n}</p>
-              <h2 className="label mt-6">{n.title}</h2>
-              <p className="mt-2 max-w-[36ch] text-[15px] leading-relaxed text-bone/75">{n.body}</p>
+              <p className="display text-2xl text-ash">{n.n}</p>
+              <h2 className="display mt-6 text-4xl">{n.title}</h2>
+              <p className="mt-4 max-w-[36ch] text-[15px] leading-relaxed text-bone/70">{n.body}</p>
             </li>
           ))}
         </ul>
 
-        <div className="mt-32 grid grid-cols-2 gap-[var(--gap)] md:grid-cols-4">
-          {["/media/duo-flatlay.jpg", "/media/matching-pairs-still.jpg", "/media/crochet-shirt-back.jpg", "/media/textured-shirt-white.jpg"].map((src) => (
+        <div className="mx-auto mt-[20vh] grid max-w-[1400px] grid-cols-2 gap-3 md:grid-cols-4">
+          {["/media/oseyi-box.jpg", "/media/duo-flatlay.jpg", "/media/matching-pairs-still.jpg", "/media/black-white-duo.jpg"].map((src) => (
             <div key={src} className="relative aspect-[4/5] overflow-hidden bg-coal">
               <Image src={src} alt="" fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover" />
             </div>

@@ -2,11 +2,11 @@
 
 Website for Òseyi, the Nigerian clothing brand ([@oseyi.1](https://www.instagram.com/oseyi.1/)).
 
-Built with Next.js 16 (App Router), React 19 and Tailwind CSS 4.
+Built with Next.js 16 (App Router), React 19, Tailwind CSS 4, GSAP ScrollTrigger and Lenis smooth scrolling.
 
 ## Pages
 
-- `/`: the sideways gallery of pieces and videos (scroll, trackpad, arrow keys or drag)
+- `/`: an entry screen, then a scroll story: intro line, a video that grows to full screen, pinned 01/03 slides (Texture, Detail, Delivery), a statement, every product one screen at a time, and "Ordinary / Ends Here"
 - `/shop`: every product, with a Shirts / Footwear filter (`/shop?c=Shirts`)
 - `/shop/[slug]`: a product with colour and size pickers and Add to bag
 - `/about`: the brand story
@@ -17,7 +17,7 @@ The bag has no online checkout. "Order on Instagram" copies the order to the cli
 
 - `data/site.js`: brand name, Instagram, WhatsApp number, city and time zone
 - `data/products.js`: products, prices (in naira; `null` shows "DM for price"), colours, sizes, images
-- `data/gallery.js`: what appears in the home gallery, in order
+- `components/home/`: the home page sections and their wording
 - `public/media/`: photos and videos
 
 ## Develop

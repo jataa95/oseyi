@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useBag } from "./BagProvider";
-import Roll from "./Roll";
 import { site } from "@/data/site";
 import { formatPrice } from "@/data/products";
 
@@ -47,36 +46,36 @@ export default function Bag() {
       <aside
         role="dialog"
         aria-label="Bag"
-        className={`absolute right-0 top-0 flex h-full w-full max-w-[460px] flex-col bg-bone text-ink transition-transform duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] ${
+        className={`absolute right-0 top-0 flex h-full w-full max-w-[460px] flex-col border-l border-line bg-coal text-bone transition-transform duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="label flex items-start justify-between p-[var(--gutter)]">
+        <div className="caps flex items-start justify-between p-[var(--gutter)] pt-6">
           <span>Bag ({items.reduce((n, i) => n + i.qty, 0)})</span>
-          <button onClick={() => setOpen(false)} className="label">
-            <Roll>Close</Roll>
+          <button onClick={() => setOpen(false)}>
+            Close
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-[var(--gutter)]">
+        <div data-lenis-prevent className="flex-1 overflow-y-auto px-[var(--gutter)]">
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-start justify-center gap-6 pb-24">
-              <p className="font-serif text-4xl leading-none">Your bag is empty.</p>
-              <Link href="/shop" onClick={() => setOpen(false)} className="label border-b border-ink pb-1">
-                <Roll>Go to shop</Roll>
+              <p className="display text-5xl">Your bag is empty.</p>
+              <Link href="/shop" onClick={() => setOpen(false)} className="gleam caps">
+                Shop the collection
               </Link>
             </div>
           ) : (
-            <ul className="divide-y divide-ink/15 border-y border-ink/15">
+            <ul className="divide-y divide-line border-y border-line">
               {items.map((i) => (
                 <li key={`${i.slug}${i.color}${i.size}`} className="flex gap-4 py-4">
-                  <div className="relative h-[110px] w-[88px] shrink-0 overflow-hidden bg-ink/10">
+                  <div className="relative h-[110px] w-[88px] shrink-0 overflow-hidden bg-ink">
                     <Image src={i.image} alt={i.name} fill sizes="88px" className="object-cover" />
                   </div>
-                  <div className="label flex flex-1 flex-col justify-between">
+                  <div className="flex flex-1 flex-col justify-between text-[13px]">
                     <div>
-                      <p>{i.name}</p>
-                      <p className="text-ink/60">
+                      <p className="display text-2xl">{i.name}</p>
+                      <p className="text-ash">
                         {i.color} / {i.size}
                       </p>
                     </div>
@@ -88,12 +87,12 @@ export default function Bag() {
                       <button aria-label="One more" onClick={() => setQty(i, i.qty + 1)} className="px-1">
                         +
                       </button>
-                      <button onClick={() => setQty(i, 0)} className="ml-auto text-ink/60">
-                        <Roll>Remove</Roll>
+                      <button onClick={() => setQty(i, 0)} className="ml-auto text-ash">
+                        Remove
                       </button>
                     </div>
                   </div>
-                  <span className="label">{formatPrice(i.price == null ? null : i.price * i.qty)}</span>
+                  <span className="text-[13px]">{formatPrice(i.price == null ? null : i.price * i.qty)}</span>
                 </li>
               ))}
             </ul>
@@ -102,24 +101,24 @@ export default function Bag() {
 
         {items.length > 0 && (
           <div className="space-y-3 p-[var(--gutter)]">
-            <div className="label flex justify-between">
+            <div className="caps flex justify-between">
               <span>Total</span>
               <span>{total == null ? "Confirmed in DM" : formatPrice(total)}</span>
             </div>
-            <p className="label text-ink/60">
+            <p className="text-[13px] text-ash">
               Orders are confirmed by message. We&apos;ll copy your order so you can paste it into the chat.
             </p>
-            <button onClick={orderOnInstagram} className="label w-full bg-ink py-4 text-bone">
-              <Roll>{copied ? "Order copied — paste it in the DM" : "Order on Instagram"}</Roll>
+            <button onClick={orderOnInstagram} className="caps w-full bg-bone py-5 text-ink transition-colors hover:bg-stone">
+              {copied ? "Order copied — paste it in the DM" : "Order on Instagram"}
             </button>
             {site.whatsapp && (
               <a
                 href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`}
                 target="_blank"
                 rel="noopener"
-                className="label block w-full border border-ink py-4 text-center"
+                className="gleam caps w-full"
               >
-                <Roll>Order on WhatsApp</Roll>
+                Order on WhatsApp
               </a>
             )}
           </div>

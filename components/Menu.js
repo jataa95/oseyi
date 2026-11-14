@@ -2,59 +2,58 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import Roll from "./Roll";
 import { site } from "@/data/site";
 
 const links = [
-  { href: "/", label: "Index" },
+  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
   { href: "/shop?c=Shirts", label: "Shirts" },
   { href: "/shop?c=Footwear", label: "Footwear" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "Our Story" },
 ];
 
-// Full-screen menu: big serif links that slide up in turn.
+// Full-screen menu: centred serif links that rise in turn.
 export default function Menu({ open, onClose }) {
   useEffect(() => {
     if (!open) return;
+    window.__lenis?.stop();
     const onKey = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.__lenis?.start();
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open, onClose]);
 
   return (
     <div
-      className={`fixed inset-0 z-30 bg-coal transition-[clip-path] duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] ${
-        open ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"
-      }`}
+      className={`weave fixed inset-0 z-30 transition-opacity duration-700 ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}
       aria-hidden={!open}
     >
-      <nav className="flex h-full flex-col justify-end px-[var(--gutter)] pb-[var(--gutter)]">
-        <ul className="mb-16">
+      <nav className="flex h-full flex-col items-center justify-center px-[var(--gutter)] text-center">
+        <ul>
           {links.map((l, i) => (
             <li key={l.href} className="overflow-hidden">
               <Link
                 href={l.href}
                 onClick={onClose}
                 tabIndex={open ? 0 : -1}
-                style={{ transitionDelay: open ? `${200 + i * 60}ms` : "0ms" }}
-                className={`group flex items-baseline gap-4 font-serif text-[15vw] leading-[0.95] transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] md:text-[8vw] ${
+                style={{ transitionDelay: open ? `${150 + i * 70}ms` : "0ms" }}
+                className={`display block py-1 text-[16vw] transition-[transform,color] duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] hover:text-stone md:text-[7vw] ${
                   open ? "translate-y-0" : "translate-y-full"
                 }`}
               >
-                <span className="label font-sans text-ash">0{i + 1}</span>
-                <span className="transition-[font-style] group-hover:italic">{l.label}</span>
+                {l.label}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="label grid grid-cols-2 gap-[var(--gap)] border-t border-line pt-3 text-ash md:grid-cols-4">
+        <div className="caps absolute inset-x-[var(--gutter)] bottom-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-ash">
           <a href={site.instagramUrl} target="_blank" rel="noopener" className="text-bone">
-            <Roll>{`Instagram @${site.instagram}`}</Roll>
+            Instagram @{site.instagram}
           </a>
           <span>Delivery nationwide</span>
-          <span className="hidden md:block">CAC registered</span>
-          <span className="hidden md:block">{site.city}, Nigeria</span>
+          <span>CAC registered</span>
         </div>
       </nav>
     </div>
