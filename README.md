@@ -6,8 +6,8 @@ Built with Next.js 16 (App Router), React 19, Tailwind CSS 4, GSAP ScrollTrigger
 
 ## Pages
 
-- `/`: an entry screen, then a scroll story: intro line, a video that grows to full screen, pinned 01/03 slides (Texture, Detail, Delivery), a statement, every product one screen at a time, and "Ordinary / Ends Here"
-- `/shop`: every product, with a Shirts / Footwear filter (`/shop?c=Shirts`)
+- `/`: a short loading screen (once per visit), then the shop front: hero video, perks, New In with quick add, Shirts / Footwear tiles, a product spotlight, the footwear campaign and how to order
+- `/shop`: every product, with a Shirts / Footwear filter and sorting (`/shop?c=Shirts&sort=price-asc`)
 - `/shop/[slug]`: a product with colour and size pickers and Add to bag
 - `/about`: the brand story
 

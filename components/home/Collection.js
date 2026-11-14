@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../Button";
 import Letters from "../Letters";
 import { gsap, reducedMotion } from "@/lib/gsap";
-import { products } from "@/data/products";
+import { formatPrice, products } from "@/data/products";
 
 // One piece per screen: big photos scroll past on the right while the name
 // and description on the left stay put and change to match.
@@ -72,18 +72,20 @@ function PieceText({ product, index }) {
   return (
     <>
       <p className="caps c-fade text-ash">
-        {product.category === "Footwear" ? "Footwear" : "Shirt"} · {String(index + 1).padStart(2, "0")}
+        Spotlight {String(index + 1).padStart(2, "0")} / {String(products.length).padStart(2, "0")} · {product.category}
       </p>
       <h3 className="display mt-5 text-[14vw] md:text-[5.4vw]" aria-label={product.name}>
         <span aria-hidden>
           <Letters text={product.name} />
         </span>
       </h3>
-      <p className="c-fade mt-6 max-w-[42ch] text-[17px] leading-snug text-bone/80">{product.summary}</p>
-      <div className="c-fade">
-        <Button href={`/shop/${product.slug}`} className="mt-10">
-          View piece
-        </Button>
+      <p className="c-fade caps mt-5">
+        {formatPrice(product.price)} <span className="text-ash">· {product.colors.join(" / ")}</span>
+      </p>
+      <p className="c-fade mt-5 max-w-[42ch] text-[17px] leading-snug text-bone/80">{product.summary}</p>
+      <div className="c-fade mt-10 flex flex-wrap gap-3">
+        <Button href={`/shop/${product.slug}`}>Shop this piece</Button>
+        <Button href={`/shop?c=${product.category}`}>All {product.category.toLowerCase()}</Button>
       </div>
     </>
   );

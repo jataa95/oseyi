@@ -1,23 +1,25 @@
-import Gate from "@/components/home/Gate";
+import Preloader from "@/components/home/Preloader";
 import Intro from "@/components/home/Intro";
-import Expand from "@/components/home/Expand";
-import Slides from "@/components/home/Slides";
-import Statement from "@/components/home/Statement";
+import Perks from "@/components/home/Perks";
+import NewIn from "@/components/home/NewIn";
+import Categories from "@/components/home/Categories";
 import Collection from "@/components/home/Collection";
 import Ordinary from "@/components/home/Ordinary";
+import HowToOrder from "@/components/home/HowToOrder";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
-      <Gate line="Shirts, footwear and gifts chosen for texture, detail and presence. Not simply to be worn." />
+      <Preloader line="Shirts, footwear and gifts. Delivered across Nigeria." />
       <main>
         <Intro />
-        <Expand />
-        <Slides />
-        <Statement />
+        <Perks />
+        <NewIn />
+        <Categories />
         <Collection />
         <Ordinary />
+        <HowToOrder />
       </main>
       <Footer />
     </>
